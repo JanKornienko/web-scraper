@@ -1,0 +1,36 @@
+{
+	"name": "web-scraper",
+	"author": "Jan Kornienko",
+	"private": false,
+	"scripts": {
+		"build": "turbo build",
+		"dev": "turbo dev",
+		"lint": "turbo lint",
+		"format": "prettier --write \"**/*.{ts,tsx,md,json,js,jsx,mjs,}\""
+	},
+	"devDependencies": {
+		"@types/cors": "^2.8.17",
+		"@types/express": "^4.17.21",
+		"@types/node": "^20.12.7",
+		"concurrently": "^8.2.2",
+		"nodemon": "^3.1.0",
+		"prettier": "^3.2.5",
+		"ts-node": "^10.9.2",
+		"ts-node-dev": "^2.0.0",
+		"turbo": "latest",
+		"typescript": "^5.4.5"
+	},
+	"engines": {
+		"node": ">=18"
+	},
+	"packageManager": "yarn@1.22.22",
+	"workspaces": [
+		"apps/*",
+		"packages/*"
+	],
+	"dependencies": {
+		"cors": "^2.8.5",
+		"dotenv": "^16.4.5",
+		"express": "^4.19.2"
+	}
+}
