@@ -126,3 +126,5 @@ export const create = async (req: Request, res: Response) => {
 		res.status(status).json(e);
 	}
 };
+
+export const load = async (req: Request, res: Response) => {}
