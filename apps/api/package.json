@@ -3,8 +3,8 @@
 	"author": "Jan Kornienko",
 	"private": true,
 	"scripts": {
-    "dev": "PORT=API_PORT tsnd --respawn --exit-child ./src/index.ts",
-    "build": "tsc -p tsconfig.json",
-    "start": "node dist/index.js"
+		"dev": "PORT=API_PORT tsnd --respawn --exit-child ./src/index.ts",
+		"build": "tsc -p tsconfig.json",
+		"start": "node dist/index.js"
 	}
 }

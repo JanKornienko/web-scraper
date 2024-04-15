@@ -118,13 +118,14 @@ async function getBooks(links: string[]) {
 export const create = async (req: Request, res: Response) => {
 	try {
 		const links = await getLinks();
-		const books = await getBooks(links);
+		await getBooks(links);
 
-		res.status(201).json(books);
+		res.status(201).end();
 	} catch (e: any) {
 		const status = e.response ? e.response.status : 500;
+
 		res.status(status).json(e);
 	}
 };
 
-export const load = async (req: Request, res: Response) => {}
+export const load = async (req: Request, res: Response) => {};
