@@ -1,1 +1,2 @@
-export * as DataController from './DataController';
+export * as ScrapeController from './ScrapeController';
+export * as LoadController from './LoadController';

@@ -1,9 +1,10 @@
 import * as express from 'express';
-import { DataController } from '../controllers/index';
+import { ScrapeController, LoadController } from '../controllers/index';
 
 const api = express.Router();
 
-api.post('/create', DataController.create);
-api.get('/load', DataController.load);
+api.post('/scrape/create', ScrapeController.create);
+api.get('/load/get-all', LoadController.getAll);
+api.get('/load/get-book/:id', LoadController.getBook);
 
 export default api;

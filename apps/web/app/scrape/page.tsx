@@ -20,7 +20,7 @@ export default function Scrape() {
 		});
 
 		await axios
-			.post('http://localhost:3001/create')
+			.post(process.env.apiUrl + '/scrape/create')
 			.then(() => {
 				setLoading(false);
 				toast.closeAll();
@@ -33,8 +33,7 @@ export default function Scrape() {
 					isClosable: true,
 				});
 			})
-			.catch((e) => {
-				console.log('fe: ', e);
+			.catch(() => {
 				setLoading(false);
 				toast.closeAll();
 

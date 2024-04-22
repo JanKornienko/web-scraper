@@ -2,8 +2,9 @@ import express, { Express } from 'express';
 import * as dotenv from 'dotenv';
 import cors from 'cors';
 import api from './routes/api';
+import path from 'path';
 
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, './../../../.env') });
 
 const app: Express = express();
 const port = process.env.API_PORT || 3001;

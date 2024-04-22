@@ -3,7 +3,8 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import * as fs from 'fs';
 
-type Books = {
+type Book = {
+	id: number;
 	title: string;
 	imageUrl: string;
 	category: string;
@@ -55,8 +56,8 @@ async function getLinks(
 
 async function getBooks(links: string[]) {
 	try {
-		const books: Books[] = [];
-		let id: number = 0;
+		const books: Book[] = [];
+		let index: number = 1;
 
 		await Promise.all(
 			links.map(async (link) => {
@@ -70,6 +71,7 @@ async function getBooks(links: string[]) {
 				const price = $('div.product_main > p.price_color').text();
 				const category = $('ul.breadcrumb > li:nth-child(3) > a').text();
 				const description = $('article.product_page > p').text();
+				const id = index;
 
 				switch ($('p.star-rating').attr('class')?.split(' ')[1]) {
 					case 'One':
@@ -92,11 +94,12 @@ async function getBooks(links: string[]) {
 						break;
 				}
 
-				console.log(id);
-				id++;
+				console.log(index);
+				index++;
 
 				if (imageUrl) {
 					books.push({
+						id,
 						title,
 						imageUrl,
 						price,
@@ -127,5 +130,3 @@ export const create = async (req: Request, res: Response) => {
 		res.status(status).json(e);
 	}
 };
-
-export const load = async (req: Request, res: Response) => {};

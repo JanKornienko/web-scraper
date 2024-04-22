@@ -15,19 +15,19 @@ type Book = {
 	description: string;
 };
 
-export default function Home() {
+export default function Book({ params }: { params: { id: string } }) {
 	const toast = useToast();
-	const [books, setBooks] = useState<Book[]>([]);
+	const [book, setBook] = useState<Book | null>(null);
 
 	const load = async () => {
 		await axios
-			.get(process.env.apiUrl + '/load/get-all')
+			.get(process.env.apiUrl + `/load/get-book/${params.id}`)
 			.then((res) => {
-				setBooks(res.data);
+				setBook(res.data);
 			})
 			.catch(() => {
 				toast({
-					title: 'Books cannot be loaded',
+					title: 'Book cannot be loaded',
 					status: 'error',
 					position: 'top-right',
 					duration: 5000,
@@ -40,20 +40,16 @@ export default function Home() {
 		load();
 	}, []);
 
-	return (
-		<Box>
-			{books.map((book) => (
-				<Box key={book.id}>
-					<img src={book.imageUrl} alt={book.title} />
-					<h1>{book.title}</h1>
-					<h2>{book.category}</h2>
-					<p>{book.id}</p>
-					<p>{book.description}</p>
-					<p>{book.price}</p>
-					<p>{book.rating}</p>
-					<Link href={`/book/${book.id}`}>view</Link>
-				</Box>
-			))}
-		</Box>
-	);
+	if (book !== null) {
+		return (
+			<Box>
+				<h1>{book.title}</h1>
+				<img src={book.imageUrl} alt={book.title} />
+				<p>Category: {book.category}</p>
+				<p>Description: {book.description}</p>
+				<p>Price: {book.price}</p>
+				<p>Rating: {book.rating}</p>
+			</Box>
+		);
+	}
 }
