@@ -26,6 +26,28 @@ async function getData(endpoint: string) {
 	}
 }
 
+async function getCategories() {
+	try {
+		const categories: string[] = [];
+		const $ = await getData('page-1.html');
+
+		$('ul.nav-list > li > ul > li > a').each((i, category) => {
+			const categoryName = $(category).text();
+
+			categories.push(categoryName.trim().replace(/\s+/g, ' '));
+		});
+
+		console.log(categories);
+
+		fs.writeFileSync(
+			'generatedData/categories.json',
+			JSON.stringify(categories)
+		);
+	} catch (e) {
+		throw e;
+	}
+}
+
 async function getLinks(
 	endpoint: string = 'page-1.html',
 	links: string[] = []
@@ -120,6 +142,7 @@ async function getBooks(links: string[]) {
 
 export const create = async (req: Request, res: Response) => {
 	try {
+		await getCategories();
 		const links = await getLinks();
 		await getBooks(links);
 

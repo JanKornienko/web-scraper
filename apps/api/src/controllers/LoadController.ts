@@ -14,12 +14,22 @@ type Book = {
 export const getAll = async (req: Request, res: Response) => {
 	try {
 		const books = await fs.readFileSync('generatedData/books.json', 'utf8');
+		const categories = await fs.readFileSync(
+			'generatedData/categories.json',
+			'utf8'
+		);
+
+		if (!categories) {
+			res.status(404).json({ message: 'No categories found' });
+		}
 
 		if (!books) {
 			res.status(404).json({ message: 'No books found' });
 		}
 
-		res.status(200).json(JSON.parse(books));
+		res
+			.status(200)
+			.json({ books: JSON.parse(books), categories: JSON.parse(categories) });
 	} catch (e: any) {
 		const status = e.response ? e.response.status : 500;
 		res.status(status).json(e);

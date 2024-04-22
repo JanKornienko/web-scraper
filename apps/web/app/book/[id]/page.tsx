@@ -1,9 +1,9 @@
 'use client';
 
-import { Box, Button, useToast } from '@chakra-ui/react';
-import Link from 'next/link';
+import { Box, Image, Heading, Text, Flex, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Star } from '@/components/Icons';
 
 type Book = {
 	id: number;
@@ -43,12 +43,25 @@ export default function Book({ params }: { params: { id: string } }) {
 	if (book !== null) {
 		return (
 			<Box>
-				<h1>{book.title}</h1>
-				<img src={book.imageUrl} alt={book.title} />
-				<p>Category: {book.category}</p>
-				<p>Description: {book.description}</p>
-				<p>Price: {book.price}</p>
-				<p>Rating: {book.rating}</p>
+				<Flex justify="space-between" gap={10} mb={10}>
+					<Image src={book.imageUrl} alt={book.title} />
+					<Flex direction="column" justify="space-between" textAlign="end">
+						<Flex direction="column" align="flex-end" gap={4}>
+							<Heading size="xl">{book.title}</Heading>
+							<Heading size="md">{book.category}</Heading>
+							<Flex align="center">
+								{[...Array(book.rating)].map((_, i) => (
+									<Star key={i} h={6} w={6} color="#FFCD3C" />
+								))}
+							</Flex>
+						</Flex>
+						<Heading size="lg">{book.price}</Heading>
+					</Flex>
+				</Flex>
+				<Heading size="lg" mb={2}>
+					Description
+				</Heading>
+				<Text fontSize="lg">{book.description}</Text>
 			</Box>
 		);
 	}
