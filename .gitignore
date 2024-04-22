@@ -38,3 +38,4 @@ yarn-error.log*
 
 # Generated data
 books.json
+categories.json
