@@ -11,6 +11,11 @@ export const metadata: Metadata = {
 	description: 'Web scrapping books from an e-shop',
 };
 
+/**
+ * Layout stránka, která se používá pro základní layout všech stránek aplikace.
+ * @param children
+ * @returns
+ */
 export default function RootLayout({
 	children,
 }: Readonly<{

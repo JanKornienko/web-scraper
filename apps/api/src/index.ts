@@ -4,6 +4,11 @@ import cors from 'cors';
 import api from './routes/api';
 import path from 'path';
 
+/**
+ * Toto je soubor s konfigurací API serveru, kde se nastavuje port, na kterém bude server naslouchat.
+ * Dále se zde nastavuje nastavení CORS politiky, která umožňuje volání API serveru z různých domén
+ */
+
 dotenv.config({ path: path.join(__dirname, './../../../.env') });
 
 const app: Express = express();

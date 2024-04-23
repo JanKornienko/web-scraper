@@ -3,6 +3,10 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import * as fs from 'fs';
 
+/**
+ * Toto je kontroler pro scrapování dat z webové stránky https://books.toscrape.com/.
+ */
+
 type Book = {
 	id: number;
 	title: string;
@@ -13,6 +17,13 @@ type Book = {
 	description: string;
 };
 
+/**
+ * Metoda pro získání dat z webové stránky.
+ * Data se získávají pomocí knihovny axios, která umožňuje získání HTML stránky.
+ *
+ * @param endpoint
+ * @returns
+ */
 async function getData(endpoint: string) {
 	try {
 		const baseUrl = 'https://books.toscrape.com/catalogue/';
@@ -26,6 +37,11 @@ async function getData(endpoint: string) {
 	}
 }
 
+/**
+ * Metoda pro získání kategorií knih.
+ * Kategorie se ukládají do JSON souboru.
+ * Kategorie se používají pro filtrování knih na frontendu.
+ */
 async function getCategories() {
 	try {
 		const categories: string[] = [];
@@ -48,6 +64,14 @@ async function getCategories() {
 	}
 }
 
+/**
+ * Metoda pro získání odkazů na jednotlivé knihy.
+ * Odkazy se ukládají do pole, které se dále používá pro získání jednotlivých knih.
+ * Odkazy se získávají rekurzivně, dokud existuje další stránka s knihami.
+ * @param endpoint
+ * @param links
+ * @returns
+ */
 async function getLinks(
 	endpoint: string = 'page-1.html',
 	links: string[] = []
@@ -76,6 +100,12 @@ async function getLinks(
 	}
 }
 
+/**
+ * Metoda pro získání knih z odkazů.
+ * Knihy se ukládají do JSON souboru.
+ * @param links
+ * @returns
+ */
 async function getBooks(links: string[]) {
 	try {
 		const books: Book[] = [];
@@ -140,6 +170,12 @@ async function getBooks(links: string[]) {
 	}
 }
 
+/**
+ * Metoda pro scrapování dat z webové stránky https://books.toscrape.com/.
+ * Volají se zde jednotlivé metody pro získání kategorií, odkazů na jednotlivé knihy a samotných knih.
+ * @param req
+ * @param res
+ */
 export const create = async (req: Request, res: Response) => {
 	try {
 		await getCategories();

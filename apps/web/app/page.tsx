@@ -33,6 +33,11 @@ type Book = {
 	description: string;
 };
 
+/**
+ * Domovská stránka aplikace, kde se zobrazují všechny knihy.
+ * Endpoint: /
+ * @returns
+ */
 export default function Home() {
 	const toast = useToast();
 	const [books, setBooks] = useState<Book[]>([]);
@@ -41,6 +46,10 @@ export default function Home() {
 	const [ratingFilter, setRatingFilter] = useState<number | null>(null);
 	const [categoryFilter, setCategoryFilter] = useState<string>('');
 
+	/**
+	 * Metoda pro získání všech knih a kategorií.
+	 * V případě chyby se zobrazí toast s chybovou hláškou.
+	 */
 	const load = async () => {
 		await axios
 			.get(process.env.apiUrl + '/load/get-all')
@@ -63,6 +72,9 @@ export default function Home() {
 		load();
 	}, []);
 
+	/**
+	 * Filtruje knihy podle zadaných parametrů.
+	 */
 	const filteredBooks = books.filter((book) => {
 		const matchesSearchQuery = book.title
 			.toLowerCase()

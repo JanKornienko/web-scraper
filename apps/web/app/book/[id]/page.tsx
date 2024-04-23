@@ -15,10 +15,20 @@ type Book = {
 	description: string;
 };
 
+/**
+ * Stránka, kde se zobrazuje detail knihy.
+ * Endpoint: /book/[id]
+ * @param params
+ * @returns
+ */
 export default function Book({ params }: { params: { id: string } }) {
 	const toast = useToast();
 	const [book, setBook] = useState<Book | null>(null);
 
+	/**
+	 * Metoda pro získání knihy podle id.
+	 * V případě chyby se zobrazí toast s chybovou hláškou.
+	 */
 	const load = async () => {
 		await axios
 			.get(process.env.apiUrl + `/load/get-book/${params.id}`)

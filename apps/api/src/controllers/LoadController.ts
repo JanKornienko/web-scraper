@@ -1,6 +1,10 @@
 import { Request, Response } from 'express';
 import * as fs from 'fs';
 
+/**
+ * Toto je kontroler pro načítání dat z JSON souborů, které se dále posílají na frontend.
+ */
+
 type Book = {
 	id: number;
 	title: string;
@@ -11,6 +15,11 @@ type Book = {
 	description: string;
 };
 
+/**
+ * Metoda pro získání všech knih uložených v JSON souboru.
+ * @param req - request
+ * @param res - response
+ */
 export const getAll = async (req: Request, res: Response) => {
 	try {
 		const books = await fs.readFileSync('generatedData/books.json', 'utf8');
@@ -36,6 +45,11 @@ export const getAll = async (req: Request, res: Response) => {
 	}
 };
 
+/**
+ * Metoda pro získání specifické knihy podle id.
+ * @param req
+ * @param res
+ */
 export const getBook = async (req: Request, res: Response) => {
 	try {
 		const books = await fs.readFileSync('generatedData/books.json', 'utf8');
